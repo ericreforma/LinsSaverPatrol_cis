@@ -1,0 +1,17 @@
+.main_content{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 60px;
+    padding-left: 230px;
+    z-index: 8;
+    overflow-y: scroll;
+    >div{
+        padding: 20px;
+        >h1{
+            font-size: 30px;
+        }
+    }
+}
