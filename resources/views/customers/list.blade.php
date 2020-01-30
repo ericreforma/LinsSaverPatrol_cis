@@ -4,9 +4,9 @@
 @section('container')
 
     <div class="customer_list">
-        <a href="{{ route('customer_add') }}" class='btn btn-primary'>Add Customer</a>
-        <div class="table_container form_container">
-            <table class="table" id="customer_list">
+        <a href="{{ route('customer_add') }}" class='btn btn-primary'>ADD NEW CUSTOMER</a>
+        <div class="table_container block_container">
+            <table class="table table-hover" id="customer_list">
                 <thead>
                     <tr>
                         <th>Code</th>
@@ -14,16 +14,24 @@
                         <th>Store Category</th>
                         <th>Address</th>
                         <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($customers as $customer)
                     <tr>
                         <td>{{ $customer->code }}</td>
-                        <td>{{ $customer->name }}</td>
-                        <td>{{ $customer->store_category_id }}</td>
+                        <td>{{ $customer->firstname }} {{ $customer->middlename }} {{ $customer->lastname }} </td>
+                        <td>{{ $customer->store_category->description }}</td>
                         <td>{{ $customer->address }}</td>
-                        <td>{{ $customer->status }}</td>
+                        <td>
+                            <span class="badge badge-{{ $customer->status == 1 ? 'success' : 'danger' }}">
+                                {{ $customer->status == 1 ? 'active' : 'inactive' }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ route('customer_details', $customer->id) }}" type="button" class='btn btn-primary'>View</a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -31,13 +39,12 @@
         </div>
     </div>
 
-
 @endsection
 
 @section('js')
-<script>
-    $(function(){
-        $('#customer_list').DataTable();
-    })
-</script>
+    <script>
+        $(function(){
+            $('#customer_list').DataTable();
+        })
+    </script>
 @endsection

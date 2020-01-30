@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::prefix('geo')->group(function(){
+    Route::get('provinces', 'GeoController@get_provinces');
+    Route::get('cities', 'GeoController@get_cities');
+    Route::get('barangays', 'GeoController@get_barangays');
+});

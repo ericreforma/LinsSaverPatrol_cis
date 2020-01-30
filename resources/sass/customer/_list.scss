@@ -1,0 +1,13 @@
+#customer_list{
+    tr{
+        .btn{
+            opacity: 0;
+
+        }
+        &:hover{
+            .btn{
+                opacity: 1;
+            }
+        }
+    }
+}

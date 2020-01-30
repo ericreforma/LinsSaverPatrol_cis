@@ -15,12 +15,12 @@
         
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-grid.min.css') }}">
-        <!-- <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-reboot.min.css') }}"> -->
+        <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-reboot.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatables.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/buttons.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/dataTables.bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/dataTables.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/buttons.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/fixedHeader.bootstrap4.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/jquery.dataTables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/responsive.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/searchPanes.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/select.bootstrap4.min.css') }}">
@@ -56,6 +56,7 @@
         
     </head>
     <body>
+    
         @guest
             @yield('auth')
         @else
@@ -79,12 +80,13 @@
         <script src="{{ asset('/js/vendor/datatable/dataTables.searchPanes.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/dataTables.select.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/fixedHeader.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('/js/vendor/datatable/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/pdfmake.min.js') }}"></script>
        
         <script src="{{ asset('/js/vendor/datatable/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/vfs_fonts.js') }}"></script>
         <script src="{{ asset('/js/vendor/fontawesome.min.js') }}"></script>
+        <script src="{{ asset('/js/functions.js') }}"></script>
+        <script src="{{ asset('/js/main.js') }}"></script>
         
         @yield('js')
     </body>

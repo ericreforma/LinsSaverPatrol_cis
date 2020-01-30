@@ -2,6 +2,13 @@
     <div class="logo_container">
 
     </div>
+    <div class="menu_button_container">
+        <div>
+            <button class="btn btn-light menu_button">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
     <div class="account_container dropdown">
 
         <div class="profile_picture dropdown-toggle" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
