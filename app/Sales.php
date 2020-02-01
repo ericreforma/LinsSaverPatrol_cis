@@ -15,4 +15,7 @@ class Sales extends Model
     public function customer(){
         return $this->belongsTo('App\Customer','customer_id','id');
     }
+    public function unit(){
+        return $this->hasOne('App\Unit','id','unit_id');
+    }
 }

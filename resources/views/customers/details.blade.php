@@ -335,11 +335,11 @@
                             return_data.push({
                             "sales_date" : json[i].sales_date,
                             "item_name" : json[i].item.name,
-                            "price" : parseFloat(json[i].price).toLocaleString(),
-                            "quantity" : parseFloat(json[i].quantity).toLocaleString(),
+                            "price" : `P ${parseFloat(json[i].price).toLocaleString()} / ${json[i].unit.short_name}`,
+                            "quantity" : `${parseFloat(json[i].quantity).toLocaleString()} / ${json[i].unit.short_name}S`,
                             "amount" : parseFloat(json[i].amount).toLocaleString(),
                             "debit_amount" : parseFloat(json[i].debit_amount).toLocaleString(),
-                            "menu" : `<button class='btn btn-primary' onclick="getForm(${json[i].id})">View</button>`
+                            "menu" : `<button class='btn btn-primary' onclick="getForm(${json[i].id})">Edit</button>`
                             });
                         }
                         return return_data;

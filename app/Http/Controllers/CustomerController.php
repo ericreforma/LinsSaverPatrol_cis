@@ -20,8 +20,9 @@ class CustomerController extends Controller
     public function index() {
         session(['active_nav' => 'customer']);
         $customers = Customer::orderBy('id','desc')->get();
+        $provinces = Province::all();
 
-        return view('customers.list', compact('customers'));
+        return view('customers.list', compact('customers', 'provinces'));
     }
 
     public function store_view(){
@@ -146,5 +147,28 @@ class CustomerController extends Controller
         $customer->save();
         
         return redirect()->route('customer_details', ['id' => $customer->id]);
+    }
+
+    public function get_list(Request $request){
+
+
+        $customer = Customer::orderBy('id','desc')
+                    ->with('store_category');
+
+        if($request->filtered == 1){
+            if($request->province != '') {
+                $customer->where('province_code',$request->province);
+            }
+            if($request->city != '') {
+                $customer->where('city_code',$request->city);
+            }
+            if($request->barangay != '') {
+                $customer->where('barangay_code',$request->barangay);
+            }
+        }
+
+        $customers = $customer->get();
+
+        return $customers;
     }
 }

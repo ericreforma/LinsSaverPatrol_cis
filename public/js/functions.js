@@ -19,6 +19,7 @@ function fetch_geo(target, code) {
         data: { 'code': code },
         success: function(response){
             let options = '';
+            options = `<option value="">- Select ${target} -</option>`
             $geo.empty();
             response.map(function(item, index) {
                 options += `<option value="${item.code}">${item.description}</option>`;

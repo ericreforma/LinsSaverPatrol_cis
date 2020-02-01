@@ -35,6 +35,7 @@ class SalesController extends Controller
         $sales = Sales::where('customer_id',$id)
             ->orderBy('sales_date','desc')
             ->with('item')
+            ->with('unit')
             ->get();
 
        
