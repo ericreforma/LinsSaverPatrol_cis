@@ -30,7 +30,7 @@
                             </span>
                         </td>
                         <td>
-                            <a href="{{ route('customer_details', $customer->id) }}" type="button" class='btn btn-primary'>View</a>
+                            <a href="{{ route('customer_details', $customer->id) }}" type="button" class='btn btn-secondary'>View</a>
                         </td>
                     </tr>
                     @endforeach
@@ -44,7 +44,10 @@
 @section('js')
     <script>
         $(function(){
-            $('#customer_list').DataTable();
+            $('#customer_list').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
         })
     </script>
 @endsection

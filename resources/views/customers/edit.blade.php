@@ -189,7 +189,7 @@
                                     <input type="file" class='form-control input-upload-image' name='idAttachment' id='idAttachment'>
                                     <label for="idAttachment" class='image_preview'>
                                         <span>Upload Photo</span>
-                                        <img src="/storage/media/{{ $customer->idMedia->url }}" alt="preview" class='img_previewer idAttachment show_preview' >
+                                        <img src="/LinsSaverPatrol_CIS/public/storage/media/{{ $customer->idMedia->url }}" alt="preview" class='img_previewer idAttachment show_preview' >
                                     </label>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                     <input type="file" class='form-control input-upload-image' name='store_photo' id='store_photo'>
                                     <label for="store_photo" class='image_preview '>
                                         <span>Upload Photo</span>
-                                        <img src="/storage/media/{{ $customer->storeMedia->url }}" alt="preview" class='img_previewer store_photo show_preview'>
+                                        <img src="/LinsSaverPatrol_CIS/public/storage/media/{{ $customer->storeMedia->url }}" alt="preview" class='img_previewer store_photo show_preview'>
                                     </label>
                                 </div>
                             </div>

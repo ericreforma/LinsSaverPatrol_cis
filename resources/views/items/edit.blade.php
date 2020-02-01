@@ -1,12 +1,13 @@
 @extends('master.body')
-
-@section('title','New Item')
+@php $title = 'Editing ' . $item->name @endphp
+@section('title', $title)
 @section('container')
 
-    <div class="item_add block_container">
+    <div class="item_edit block_container">
 
-        <form class="form-inline" method=POST action="{{ route('item_store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+        <form class="form-inline" method=POST action="{{ route('item_editstore') }}" accept-charset="UTF-8" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" value="{{ $item->id }}" name="id" id="id" />
             <div class="container-fluid">
                 
                 <div class="row">
@@ -19,7 +20,7 @@
                                         <label for="lastname">Brand</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='brand' id='brand'>
+                                        <input value='{{ $item->brand }}' required type="text" class='form-control' name='brand' id='brand'>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +30,7 @@
                                         <label for="firstname">Category</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='category' id='category'>
+                                        <input value='{{ $item->category }}' required type="text" class='form-control' name='category' id='category'>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +40,7 @@
                                         <label for="middlename">Display Name</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='name' id='name'>
+                                        <input value='{{ $item->name }}' required type="text" class='form-control' name='name' id='name'>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +50,7 @@
                                         <label for="customer_name">Price</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="number" class='form-control' name='price' id='price'>
+                                        <input value="{{ $item->price->price }}" required type="number" class='form-control' name='price' id='price'>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +63,7 @@
                                        <select required class='form-control' name='unit_id' id='unit_id'>
                                             <option value=''>- Select unit -</option>
                                             @foreach($units as $unit)
-                                                <option value="{{ $unit->id }}">{{ $unit->name }} ({{ $unit->short_name }})</option>
+                                                <option value="{{ $unit->id }}" {{ $item->unit_id == $unit->id ? 'selected' : '' }}>{{ $unit->name }} ({{ $unit->short_name }})</option>
                                             @endforeach
                                        </select>
                                     </div>

@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     });
 
-    // CUSTOMER
+    // ITEM
     Route::prefix('item')->group(function(){
         Route::get('/list', 'ItemController@index')->name('item_list');
         Route::get('/add', 'ItemController@store_view')->name('item_add');

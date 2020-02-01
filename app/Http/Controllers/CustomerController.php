@@ -7,6 +7,9 @@ use App\Customer;
 use App\Province;
 use App\StoreCategory;
 use App\Media;
+use App\Author;
+use App\Item;
+use App\Unit;
 
 class CustomerController extends Controller
 {
@@ -70,14 +73,30 @@ class CustomerController extends Controller
 
         $customer->save();
         
+        $author = new Author;
+        $author->document_type = 'customer';
+        $author->document_id = $customer->id;
+        $author->user_id = $request->user()->id;
+        $author->user_role = 'created';
+        $author->save();
+
         return redirect()->route('customer_details', ['id' => $customer->id]);
     }
 
     public function details($id){
         session(['active_nav' => 'customer']);
         $customer = Customer::find($id);
+        $items = Item::all();
+        $units = Unit::all();
 
-        return view('customers.details', compact('customer'));
+        $creator = $customer->creator->first();
+        $editor=null;
+
+        if($customer->previousEditor->first() !== null){
+            $editor = $customer->previousEditor->first();
+        }
+
+        return view('customers.details', compact('customer','creator', 'editor','items', 'units'));
     }
 
     public function edit_view($id){
@@ -87,8 +106,6 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
 
         return view('customers.edit', compact('customer', 'provinces','storeCategories'));
-
-
     }
 
     public function edit_store(Request $request){
@@ -118,7 +135,14 @@ class CustomerController extends Controller
         if($request->has('store_photo')){
             $customer->storephoto_media_id = $this->saveMedia($customer->id, $request->file('store_photo'));
         }
-        
+
+        $author = new Author;
+        $author->document_type = 'customer';
+        $author->document_id = $customer->id;
+        $author->user_id = $request->user()->id;
+        $author->user_role = 'edited';
+        $author->save();
+
         $customer->save();
         
         return redirect()->route('customer_details', ['id' => $customer->id]);

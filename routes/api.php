@@ -17,9 +17,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::prefix('geo')->group(function(){
     Route::get('provinces', 'GeoController@get_provinces');
     Route::get('cities', 'GeoController@get_cities');
     Route::get('barangays', 'GeoController@get_barangays');
+});
+
+Route::get('item/{id}', 'ItemController@get_item');
+
+Route::prefix('sales')->group(function(){
+    Route::post('store', 'SalesController@store');
+    Route::post('delete', 'SalesController@delete');
+    Route::get('details/{id}', 'SalesController@get_details');
+    Route::get('ledger/get/{id}', 'SalesController@get_ledger');
+
 });

@@ -19,6 +19,35 @@ body{
    
     .table_container{
         margin-top: 25px;
+        table{
+            tr{
+                .btn{
+                    opacity: 0;
+        
+                }
+                &:hover{
+                    .btn{
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    .table_details{
+        tr{
+            td{
+                padding-bottom: 12px;;
+            }
+            td:first-child{
+                text-align: right;
+                padding-right: 10px;
+            }
+            td:last-child{
+                font-weight: bold;
+                font-size: 16px;
+            }
+        }
     }
 
     .block_container{
@@ -120,5 +149,30 @@ body{
             left: 50%;
             top: 50%;
         }
+    }
+
+    .author_table{
+        font-size: 15px;
+        tr{
+            td:first-child{ 
+            }
+            td:last-child{
+                padding-left: 10px;
+            }
+        }
+    }
+    
+    .bootstrap-select{
+        width: 100% !important;
+        border: 1px solid #ced4da !important;
+        >.dropdown-toggle{
+            width: 100%;
+        }
+    }
+    .modal-footer, .modal-header{
+        width: 100%;
+    }
+    input[type=number]{
+        text-align: right;
     }
 } 
