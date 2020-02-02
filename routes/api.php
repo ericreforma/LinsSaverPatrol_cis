@@ -34,4 +34,5 @@ Route::prefix('sales')->group(function(){
 
 Route::prefix('customer')->group(function(){
     Route::get('list', 'CustomerController@get_list');
+    Route::post('delete', 'CustomerController@delete');
 });

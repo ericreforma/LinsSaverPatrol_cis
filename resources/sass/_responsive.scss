@@ -6,6 +6,7 @@
         left: 0;
     }
 }
+
 @media only screen and (max-width: 1200px)  {
     .main_content{
         padding-left: 0 !important;
@@ -46,4 +47,37 @@
             }
         }
     }
+}
+
+@media only screen and (max-width: 450px)  {
+    .customer_list{
+        .filter_container{
+            margin-top: 20px;
+        }
+        .filter_container{
+            select, .btn{
+                margin-bottom: 10px;
+            }
+        }
+    }
+    .topbar{
+        .logo_container{
+            width: 100%;
+            
+        }
+        .menu_button_container{
+            position: absolute;
+            left: 10px;
+            float: none;
+        }
+        .account_container{
+            position: absolute; 
+            right: 10px;
+            float: none;
+            padding-top: 0;
+            padding-right: 0;
+            top: 10px;
+        }
+    }
+
 }

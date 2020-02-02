@@ -11461,13 +11461,30 @@ a.text-dark:focus {
 
 .topbar .logo_container {
   float: left;
-  width: 207px;
+  width: 230px;
   height: 100%;
+  background-color: #fee600;
+  text-align: center;
+}
+
+.topbar .logo_container img {
+  max-width: 89px;
+  display: block;
+  margin: auto;
+  margin-top: 5px;
+}
+
+.topbar .logo_container h1 {
+  color: #37a43c;
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .topbar .menu_button_container {
   float: left;
   height: 100%;
+  left: -26px;
+  position: relative;
 }
 
 .topbar .menu_button_container .menu_button {
@@ -11475,7 +11492,6 @@ a.text-dark:focus {
   height: 50px;
   border-radius: 100%;
   font-size: 23px;
-  box-shadow: 1px 1px 5px #555555a1;
   margin-top: 4px;
 }
 
@@ -11545,10 +11561,10 @@ a.text-dark:focus {
   top: 0;
   bottom: 0;
   width: 230px;
-  background-color: #fff;
+  background-color: #37a43c;
   padding-top: 60px;
   z-index: 9;
-  box-shadow: 4px 0px 8px #c7c7c73d;
+  box-shadow: 1px 0px 7px #00000054;
   -webkit-transition: left 0.2s ease-in-out;
   transition: left 0.2s ease-in-out;
 }
@@ -11573,30 +11589,23 @@ a.text-dark:focus {
 
 .navigation .main-menu li a span {
   margin-left: 10px;
+  color: #fff;
+}
+
+.navigation .main-menu li a path {
+  fill: #fff;
 }
 
 .navigation .main-menu li a:hover {
   text-decoration: none;
 }
 
-.navigation .main-menu li a:hover path {
-  fill: #3490dc;
-}
-
 .navigation .main-menu li:hover {
-  background-color: #e1f1ff;
+  background-color: #4ab94f;
 }
 
 .navigation .main-menu li.active {
-  background-color: #f5f5f5;
-}
-
-.navigation .main-menu li.active a span {
-  color: #3490dc;
-}
-
-.navigation .main-menu li.active a path {
-  fill: #3490dc;
+  background-color: #1c7720;
 }
 
 .navigation.close_menu {
@@ -11779,6 +11788,36 @@ a.text-dark:focus {
   .login_wrapper .login_container > div .form_container {
     width: 100%;
     padding-top: 0;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .customer_list .filter_container {
+    margin-top: 20px;
+  }
+
+  .customer_list .filter_container select,
+  .customer_list .filter_container .btn {
+    margin-bottom: 10px;
+  }
+
+  .topbar .logo_container {
+    width: 100%;
+  }
+
+  .topbar .menu_button_container {
+    position: absolute;
+    left: 10px;
+    float: none;
+  }
+
+  .topbar .account_container {
+    position: absolute;
+    right: 10px;
+    float: none;
+    padding-top: 0;
+    padding-right: 0;
+    top: 10px;
   }
 }
 

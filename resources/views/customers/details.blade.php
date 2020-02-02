@@ -143,7 +143,10 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="row justify-content-end">
+                            <div class="row justify-content-between">
+                                <div class=" col-sm-4 col-md-3 col-lg-2">
+                                    <a href="" type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete_modal">DELETE</a>
+                                </div>
                                 <div class=" col-sm-4 col-md-3 col-lg-2">
                                     <a href="{{ route('customer_editview',$customer->id) }}" type="button" class="btn btn-primary btn-block">EDIT</a>
                                 </div>
@@ -179,135 +182,166 @@
 @endsection
 
 @section('modal')
-    <div class="modal fade" id="imagePreviewModal" tabindex="-1" role="dialog" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <img src='' class='big_preview' data-dismiss="modal">
+    <!-- PREVIEW MODAL -->
+        <div class="modal fade" id="imagePreviewModal" tabindex="-1" role="dialog" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <img src='' class='big_preview' data-dismiss="modal">
+            </div>
         </div>
-    </div>
-    <div class="modal fade" id="add_ledger_modal" tabindex="-1" role="dialog" aria-labelledby="add_ledger_modalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <form class="form-inline add_ledger_form" method=POST accept-charset="UTF-8" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" id="customer_id" name="customer_id" value='{{ $customer->id }}' />
-                <input type="hidden" id="sales_id" name="sales_id" value='' />
-                <input type="hidden" id="isEdit" name="isEdit" value='0' />
-                <div class="modal-header">
-                    <h5 class="modal-title" id="add_ledger_modalLabel">ADD NEW SALES</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-                                    <label for="unit">Date</label>
-                                </div>
-                                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
-                                    <input required type="text" class='form-control' name='ledger_date' id='ledger_date'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-                                    <label for="item">Item</label>
-                                </div>
-                                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
-                                    <select required type="text" class='form-control item-select' name='item_id' id='item_id' data-live-search="true">
-                                    <option data-tokens="" value="">- Select item -</option>
-                                        @foreach($items as $item)
-                                            <option data-tokens="{{ $item->name }}" value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-                                    <label for="price">Price</label>
-                                </div>
-                                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">P</span>
-                                        </div>
-                                        <input required type="number" class='form-control' name='ledger_price' id='ledger_price'>
+    <!-- ADD LEDGER MODAL -->
+        <div class="modal fade" id="add_ledger_modal" tabindex="-1" role="dialog" aria-labelledby="add_ledger_modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <form class="form-inline add_ledger_form" method=POST accept-charset="UTF-8" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" id="customer_id" name="customer_id" value='{{ $customer->id }}' />
+                    <input type="hidden" id="sales_id" name="sales_id" value='' />
+                    <input type="hidden" id="isEdit" name="isEdit" value='0' />
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add_ledger_modalLabel">ADD NEW SALES</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                        <label for="unit">Date</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <input required type="text" class='form-control' name='ledger_date' id='ledger_date'>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-                                    <label for="amount">Pricing unit</label>
-                                </div>
-                                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
-                                    <select required class='form-control' name='ledger_unit' id='ledger_unit'>
-                                        <option value=''>- Select unit -</option>
-                                        @foreach($units as $unit)
-                                            <option value="{{ $unit->id }}">{{ $unit->name }} ({{ $unit->short_name }})</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-                                    <label for="unit">Quantity</label>
-                                </div>
-                                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
-                                    <input required type="number" class='form-control' name='ledger_qty' id='ledger_qty'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-                                    <label for="amount">Amount</label>
-                                </div>
-                                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">P</span>
-                                        </div>
-                                        <input required type="number" class='form-control' name='amount' id='amount'>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                        <label for="item">Item</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <select required type="text" class='form-control item-select' name='item_id' id='item_id' data-live-search="true">
+                                        <option data-tokens="" value="">- Select item -</option>
+                                            @foreach($items as $item)
+                                                <option data-tokens="{{ $item->name }}" value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-                                    <label for="debit_amount">Debit Amount</label>
-                                </div>
-                                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">P</span>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                        <label for="price">Price</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">P</span>
+                                            </div>
+                                            <input required type="number" class='form-control' name='ledger_price' id='ledger_price'>
                                         </div>
-                                        <input required type="number" class='form-control' name='debit_amount' id='debit_amount'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                        <label for="amount">Pricing unit</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <select required class='form-control' name='ledger_unit' id='ledger_unit'>
+                                            <option value=''>- Select unit -</option>
+                                            @foreach($units as $unit)
+                                                <option value="{{ $unit->id }}">{{ $unit->name }} ({{ $unit->short_name }})</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                        <label for="unit">Quantity</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <input required type="number" class='form-control' name='ledger_qty' id='ledger_qty'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                        <label for="amount">Amount</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">P</span>
+                                            </div>
+                                            <input required type="number" class='form-control' name='amount' id='amount'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                        <label for="debit_amount">Debit Amount</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">P</span>
+                                            </div>
+                                            <input required type="number" class='form-control' name='debit_amount' id='debit_amount'>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger btn_delete hide" >Delete</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn_delete hide" >Delete</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
 
+                </div>
             </div>
         </div>
-    </div>
-    
+
+    <!-- CONFIM DELETE -->
+        <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modallabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="delete_modallabel">Confirm Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to <strong>DELETE</strong> customer <strong>{{ $fullname }}?</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="container-fluid">
+                            <div class="row justify-content-between">
+                                <div class="col-4 col-sm-3 col-md-2 col-lg-2">
+                                    <button type="button" class="btn btn-link btn_yes_delete">Yes</button>
+                                </div>
+                                <div class="col-4 col-sm-3 col-md-2 col-lg-2">
+                                    <button type="button" class="btn btn-danger btn_no_delete">NO</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 
 @section('js')
@@ -464,6 +498,28 @@
                 }
             })
         }
+
+        $('.btn_yes_delete').on('click', function(){
+
+            $('.btn_yes_delete').attr('disabled','disabled');
+            $('.btn_yes_delete').html(`<div class="spinner-border text-dark spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>`);
+
+            $.ajax({
+                type: 'POST',
+                url: `${window.location.origin}/LinsSaverPatrol_CIS/public/api/customer/delete`,
+                data: {
+                    id: $('#customer_id').val(),
+                },
+                success: function(response){
+                    $('.btn_yes_delete').attr('disabled',false);
+                    $('.btn_yes_delete').html(`Yes`);
+                    window.location.replace(`${window.location.origin}/LinsSaverPatrol_CIS/public/customer/list`);
+                }
+
+            })
+        });
 
     </script>
 @endsection

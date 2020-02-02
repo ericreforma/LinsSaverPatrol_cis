@@ -171,4 +171,9 @@ class CustomerController extends Controller
 
         return $customers;
     }
+    public function delete(Request $request){
+        $customer = Customer::find($request->id);
+
+        $customer->delete();
+    }
 }

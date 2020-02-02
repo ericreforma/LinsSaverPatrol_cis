@@ -9,18 +9,32 @@
     z-index: 10;
     .logo_container{
         float: left;
-        width: 207px;
+        width: 230px;
         height: 100%;
+        background-color: $yellow;
+        text-align: center;
+        img{
+            max-width: 89px;
+            display: block;
+            margin: auto;
+            margin-top: 5px;
+        }
+        h1{
+            color: $green;
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+        }
     }
     .menu_button_container{
         float: left;
         height: 100%;
+        left: -26px;
+        position: relative;
         .menu_button{
             width: 50px;
             height: 50px;
             border-radius: 100%;
             font-size: 23px;
-            box-shadow: 1px 1px 5px #555555a1;
             margin-top: 4px;
         }
     }

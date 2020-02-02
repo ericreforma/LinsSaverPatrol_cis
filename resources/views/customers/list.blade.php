@@ -5,12 +5,12 @@
 
     <div class="customer_list">
         <div class="row justify-content-between">
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                 <a href="{{ route('customer_add') }}" class='btn btn-primary btn-block'>ADD NEW CUSTOMER</a>
 
             </div>
-            <div class="col-12 col-sm-12 col-md-3 col-lg-3">
-                <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <button class="btn btn-light btn-block btn_filter" type="button" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
                     <i class="fas fa-filter"></i> Filter
                 </button>
             </div>
@@ -42,13 +42,13 @@
                     </div>
                 </div>
                 <div class="row justify-content-end filter_buttons">
-                    <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                    <div class="col-12 col-sm-3 col-md-2 col-lg-2">
                         <div class="btn btn-success btn-block search_filtered">SEARCH</div>
                     </div>
-                    <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                    <div class="col-12 col-sm-3 col-md-2 col-lg-2">
                         <div class="btn btn-secondary btn-block clear_filtered">CLEAR</div>
                     </div>
-                    <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                    <div class="col-12 col-sm-3 col-md-2 col-lg-2">
                         <div class="btn btn-dark btn-block close_filtered">CLOSE</div>
                     </div>
                 </div>
@@ -59,6 +59,7 @@
         <div class="collapse" id="filterResultCollapse"> 
             <div class='block_container filter_container' >
                 <h5>Showing results for <span> </span></h5>
+                <button class="btn btn-primary clear_filtered">CLEAR FILTER</button>
             </div>        
         </div>
 
