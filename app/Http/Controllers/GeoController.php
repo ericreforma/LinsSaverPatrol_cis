@@ -14,12 +14,15 @@ class GeoController extends Controller
    }
 
    public function get_cities(Request $request) {
-       $cities = City::where('province_code',$request->code)->get();
+       $cities = City::where('province_code',$request->code)
+                        ->orderBy('description','asc')->get();
+                        
        return $cities;
    }
 
    public function get_barangays(Request $request) {
-       $barangays = Barangay::where('city_code', $request->code)->get();
+       $barangays = Barangay::where('city_code', $request->code)
+                    ->orderBy('description','asc')->get();
        return $barangays;
    }
 

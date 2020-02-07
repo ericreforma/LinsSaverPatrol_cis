@@ -12,22 +12,23 @@
 
 */
 Auth::routes();
-Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', 'CustomerController@index')->name('customer_list');
 
     // CUSTOMER
     Route::prefix('customer')->group(function(){
         Route::get('/list', 'CustomerController@index')->name('customer_list');
         Route::get('/add', 'CustomerController@store_view')->name('customer_add');
         Route::post('/add', 'CustomerController@store')->name('customer_store');
+        
         Route::get('/details/{id}', 'CustomerController@details')->name('customer_details');
         Route::get('/edit/{id}', 'CustomerController@edit_view')->name('customer_editview');
         Route::post('/edit', 'CustomerController@edit_store')->name('customer_editstore');
 
     });
 
-    // CUSTOMER
+    // ITEM
     Route::prefix('item')->group(function(){
         Route::get('/list', 'ItemController@index')->name('item_list');
         Route::get('/add', 'ItemController@store_view')->name('item_add');
@@ -36,4 +37,18 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/edit/{id}', 'ItemController@edit_view')->name('item_editview');
         Route::post('/edit', 'ItemController@edit_store')->name('item_editstore');
     });
+
+    // REPORT
+    Route::prefix('report')->group(function(){
+        Route::get('/', 'ReportController@index')->name('report_view');
+    });
+
+    // USER
+    Route::prefix('users')->group(function(){
+        Route::get('/list', 'UserController@list')->name('users_list');
+        Route::get('/add', 'UserController@store_view')->name('users_add');
+        Route::post('/add', 'UserController@store')->name('users_store');
+        Route::get('/details/{id}', 'UserController@details')->name('users_details');
+    });
+
 });

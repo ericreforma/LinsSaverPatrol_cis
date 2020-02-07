@@ -118,7 +118,7 @@
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
                                         <select class='form-control' name='cities' id='cities'>
-                                            <option value='{{ $customer->city_code }}'>{{ $customer->city->description }}</option>
+                                            <option value='{{ $customer->city_code }}'>{{ $customer->city_code != null ? $customer->city->description : '' }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
                                         <select class='form-control' name='barangays' id='barangays'>
-                                            <option value='{{ $customer->barangay_code }}'>{{ $customer->barangay->description }}</option>
+                                            <option value='{{ $customer->barangay_code }}'>{{ $customer->barangay_code != null ? $customer->barangay->description : ''}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -189,7 +189,11 @@
                                     <input type="file" class='form-control input-upload-image' name='idAttachment' id='idAttachment'>
                                     <label for="idAttachment" class='image_preview'>
                                         <span>Upload Photo</span>
-                                        <img src="/storage/media/{{ $customer->idMedia->url }}" alt="preview" class='img_previewer idAttachment show_preview' >
+                                        @if($customer->idattachment_media_id != null)
+                                            <img src="/influencer/LinsSaverPatrol_CIS/public/storage/media/{{ $customer->idMedia->url }}" alt="preview" class='img_previewer idAttachment show_preview' >
+                                        @else
+                                            <img src="" alt="preview" class='img_previewer idAttachment' >
+                                        @endif
                                     </label>
                                 </div>
                             </div>
@@ -199,7 +203,11 @@
                                     <input type="file" class='form-control input-upload-image' name='store_photo' id='store_photo'>
                                     <label for="store_photo" class='image_preview '>
                                         <span>Upload Photo</span>
-                                        <img src="/storage/media/{{ $customer->storeMedia->url }}" alt="preview" class='img_previewer store_photo show_preview'>
+                                        @if($customer->storephoto_media_id != null)
+                                            <img src="/influencer/LinsSaverPatrol_CIS/public/storage/media/{{ $customer->storeMedia->url }}" alt="preview" class='img_previewer store_photo show_preview'>
+                                        @else
+                                            <img src="" alt="preview" class='img_previewer store_photo'>
+                                        @endif
                                     </label>
                                 </div>
                             </div>
@@ -220,4 +228,14 @@
         </form>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+        $(function(){
+            @if($customer->city_code == null)
+                $('#province').change();
+            @endif
+        });
+    </script>
 @endsection

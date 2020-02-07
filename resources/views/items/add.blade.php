@@ -19,7 +19,7 @@
                                         <label for="lastname">Brand</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='lastname' id='lastname'>
+                                        <input required type="text" class='form-control' name='brand' id='brand'>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                                         <label for="firstname">Category</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='firstname' id='firstname'>
+                                        <input required type="text" class='form-control' name='category' id='category'>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                         <label for="middlename">Display Name</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='middlename' id='middlename'>
+                                        <input required type="text" class='form-control' name='name' id='name'>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                         <label for="customer_name">Price</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='store_name' id='store_name'>
+                                        <input required type="number" class='form-control' name='price' id='price'>
                                     </div>
                                 </div>
                             </div>
@@ -59,22 +59,27 @@
                                         <label for="customer_name">Unit of Price</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='store_name' id='store_name'>
+                                       <select required class='form-control' name='unit_id' id='unit_id'>
+                                            <option value=''>- Select unit -</option>
+                                            @foreach($units as $unit)
+                                                <option value="{{ $unit->id }}">{{ $unit->name }} ({{ $unit->short_name }})</option>
+                                            @endforeach
+                                       </select>
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="row justify-content-end">
+                                <div class=" col-md-3 col-sm-12">
+                                    <button type="submit" class="btn btn-success btn-block">
+                                        SAVE
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                    </div>
             <!-- SUBMIT BUTTON -->
 
-                <div class="row justify-content-center">
-                    <div class=" col-md-3 col-sm-12">
-                        <button type="submit" class="btn btn-success btn-block">
-                            SAVE
-                        </button>
-                    </div>
-                </div>
+               
             </div>
         </form>
     </div>

@@ -7,6 +7,11 @@ use App\Customer;
 use App\Province;
 use App\StoreCategory;
 use App\Media;
+use App\Author;
+use App\Item;
+use App\Unit;
+use Auth;
+use DB;
 
 class CustomerController extends Controller
 {
@@ -15,18 +20,28 @@ class CustomerController extends Controller
     }
 
     public function index() {
-        session(['active_nav' => 'customer']);
-        $customers = Customer::orderBy('id','desc')->get();
+        if(Auth::user()->customer_role->role_view == 1){
+            session(['active_nav' => 'customer']);
+            $customers = Customer::orderBy('id','desc')->get();
+            $provinces = Province::all();
+    
+            return view('customers.list', compact('customers', 'provinces'));
+        }
 
-        return view('customers.list', compact('customers'));
+        return abort(404);
     }
 
     public function store_view(){
-        session(['active_nav' => 'customer']);
-        $provinces = Province::all();
-        $storeCategories = StoreCategory::all();
 
-        return view('customers.add', compact('provinces','storeCategories'));
+        if(Auth::user()->customer_role->role_add == 1){
+            session(['active_nav' => 'customer']);
+            $provinces = Province::orderBy('description','asc')->get();
+            $storeCategories = StoreCategory::all();
+    
+            return view('customers.add', compact('provinces','storeCategories'));
+        }
+
+        return abort(404);
     }
     
     private function saveMedia($owner_id, $file) {
@@ -65,30 +80,68 @@ class CustomerController extends Controller
 
         $customer->reference_code = sprintf('%05d', $customer->id);
         $customer->code = substr($customer->barangay_code, 4) .'-' . substr($customer->barangay_code, 4, 3) . '-' . $customer->reference_code;
-        $customer->idattachment_media_id = $this->saveMedia($customer->id, $request->file('idAttachment'));
-        $customer->storephoto_media_id = $this->saveMedia($customer->id, $request->file('store_photo'));
+
+
+        if($request->has('idAttachment')){
+            $customer->idattachment_media_id = $this->saveMedia($customer->id, $request->file('idAttachment'));
+        }
+
+        if($request->has('store_photo')){
+            $customer->storephoto_media_id = $this->saveMedia($customer->id, $request->file('store_photo'));
+        }
 
         $customer->save();
         
+        $author = new Author;
+        $author->document_type = 'customer';
+        $author->document_id = $customer->id;
+        $author->user_id = $request->user()->id;
+        $author->user_role = 'created';
+        $author->save();
+
         return redirect()->route('customer_details', ['id' => $customer->id]);
     }
 
-    public function details($id){
-        session(['active_nav' => 'customer']);
-        $customer = Customer::find($id);
+    public function setStatus(Request $request){
+        $customer = Customer::find($request->id);
+        $customer->status = $request->status;
+        $customer->save();
 
-        return view('customers.details', compact('customer'));
+    }
+
+    public function details($id){
+        if(Auth::user()->customer_role->role_view == 1) {
+            session(['active_nav' => 'customer']);
+            $customer = Customer::find($id);
+            $items = Item::all();
+            $units = Unit::all();
+
+            $creator = $customer->creator->first();
+            $editor=null;
+
+        
+
+            if($customer->previousEditor->first() !== null){
+                $editor = $customer->previousEditor->first();
+            }
+
+            return view('customers.details', compact('customer','creator', 'editor','items', 'units'));
+        }
+
+        return abort(404);
     }
 
     public function edit_view($id){
-        session(['active_nav' => 'customer']);
-        $provinces = Province::all();
-        $storeCategories = StoreCategory::all();
-        $customer = Customer::find($id);
+        if(Auth::user()->customer_role->role_edit == 1) {
+            session(['active_nav' => 'customer']);
+            $provinces = Province::all();
+            $storeCategories = StoreCategory::all();
+            $customer = Customer::find($id);
 
-        return view('customers.edit', compact('customer', 'provinces','storeCategories'));
+            return view('customers.edit', compact('customer', 'provinces','storeCategories'));
+        }
 
-
+        return abort(404);
     }
 
     public function edit_store(Request $request){
@@ -110,7 +163,6 @@ class CustomerController extends Controller
         $customer->google_map = $request->google_map;
         $customer->save();
 
-
         if($request->has('idAttachment')){
             $customer->idattachment_media_id = $this->saveMedia($customer->id, $request->file('idAttachment'));
         }
@@ -118,9 +170,53 @@ class CustomerController extends Controller
         if($request->has('store_photo')){
             $customer->storephoto_media_id = $this->saveMedia($customer->id, $request->file('store_photo'));
         }
-        
+
+        $author = new Author;
+        $author->document_type = 'customer';
+        $author->document_id = $customer->id;
+        $author->user_id = $request->user()->id;
+        $author->user_role = 'edited';
+        $author->save();
+
         $customer->save();
+
+        DB::table('sales')
+        ->where('customer_id', $customer->id)
+        ->update([
+            'province_code' => $customer->province_code,
+            'city_code' => $customer->city_code,
+            'barangay_code' => $customer->barangay_code,
+        ]);
+        
         
         return redirect()->route('customer_details', ['id' => $customer->id]);
+    }
+
+    public function get_list(Request $request){
+
+
+        $customer = Customer::orderBy('id','desc')
+                    ->with('store_category');
+
+        if($request->filtered == 1){
+            if($request->province != '') {
+                $customer->where('province_code',$request->province);
+            }
+            if($request->city != '') {
+                $customer->where('city_code',$request->city);
+            }
+            if($request->barangay != '') {
+                $customer->where('barangay_code',$request->barangay);
+            }
+        }
+
+        $customers = $customer->get();
+
+        return $customers;
+    }
+    public function delete(Request $request){
+        $customer = Customer::find($request->id);
+
+        $customer->delete();
     }
 }

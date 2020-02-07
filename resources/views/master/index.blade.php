@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-grid.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-reboot.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-select.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/dataTables.bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/dataTables.bootstrap4.min.css') }}">
@@ -24,6 +25,7 @@
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/responsive.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/searchPanes.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/select.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vendor/daterangepicker.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
 
@@ -67,8 +69,10 @@
         <script src="{{ asset('/js/vendor/popper.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/bootstrap.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('/js/vendor/bootstrap-select.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatables.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/buttons.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('/js/vendor/datatable/buttons.html5.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/buttons.colVis.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/buttons.print.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/dataTables.bootstrap4.min.js') }}"></script>
@@ -81,10 +85,12 @@
         <script src="{{ asset('/js/vendor/datatable/dataTables.select.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/fixedHeader.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/pdfmake.min.js') }}"></script>
-       
         <script src="{{ asset('/js/vendor/datatable/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('/js/vendor/datatable/vfs_fonts.js') }}"></script>
         <script src="{{ asset('/js/vendor/fontawesome.min.js') }}"></script>
+        <script src="{{ asset('/js/vendor/datedropper.pro.min.js') }}"></script>
+        <script src="{{ asset('/js/vendor/moment.min.js') }}"></script>
+        <script src="{{ asset('/js/vendor/daterangepicker.js') }}"></script>
         <script src="{{ asset('/js/functions.js') }}"></script>
         <script src="{{ asset('/js/main.js') }}"></script>
         

@@ -1,13 +1,15 @@
-#customer_list{
-    tr{
-        .btn{
-            opacity: 0;
+.customer_list{ 
 
-        }
-        &:hover{
-            .btn{
-                opacity: 1;
-            }
-        }
+    .filter_container{
+        margin-top: 20px;
+        display: inline-block;
+        width: 100%;
+    }
+    select{
+        width: 100%;
+    }
+    .filter_buttons{
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 }

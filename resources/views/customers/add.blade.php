@@ -40,7 +40,7 @@
                                         <label for="middlename">Middle Name</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='middlename' id='middlename'>
+                                        <input type="text" class='form-control' name='middlename' id='middlename'>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                         <label for="customer_name">Contact Number</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='contact_number' id='contact_number'>
+                                        <input type="text" class='form-control' name='contact_number' id='contact_number'>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                         <label for="customer_name">Email</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="email" class='form-control' name='email' id='email'>
+                                        <input type="email" class='form-control' name='email' id='email'>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                         <label for="customer_name">Province</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <select required class='form-control' name='province' id='province'>
+                                        <select class='form-control' name='province' id='province'>
                                             <option value=''>- Select a Province -</option>
                                             @foreach($provinces as $province)
                                                 <option value='{{ $province->code }}'>{{ $province->description }}</option>
@@ -116,7 +116,7 @@
                                         <label for="customer_name">City / Municipality</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <select required class='form-control' name='cities' id='cities'>
+                                        <select class='form-control' name='cities' id='cities'>
                                         </select>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                         <label for="customer_name">Barangay</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <select required class='form-control' name='barangays' id='barangays'>
+                                        <select class='form-control' name='barangays' id='barangays'>
                                         </select>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                         <label for="customer_name">Complete Address</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='address' id='address'>
+                                        <input type="text" class='form-control' name='address' id='address'>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                                         <label for="customer_name">Land Mark</label>
                                     </div>
                                     <div class=" col-md-8 col-sm-12">
-                                        <input required type="text" class='form-control' name='landmark' id='landmark'>
+                                        <input type="text" class='form-control' name='landmark' id='landmark'>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                             <div class="input-group-prepend">
                                                 <a href="https://www.google.com/maps" class="btn btn-secondary" type="button" id="google_map" target="_blank">Open Google Map</a>
                                             </div>
-                                            <input required type="text" class="form-control" 
+                                            <input type="text" class="form-control" 
                                             name="google_map"
                                             id="google_map"
                                             placeholder="" aria-label="Example text with button addon" aria-describedby="google_map">
@@ -182,7 +182,7 @@
                             <div class=" col-sm-12 col-md-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="idAttachment">Identification Card</label>
-                                    <input required type="file" class='form-control input-upload-image' name='idAttachment' id='idAttachment'>
+                                    <input type="file" class='form-control input-upload-image' name='idAttachment' id='idAttachment'>
                                     <label for="idAttachment" class='image_preview'>
                                         <span>Upload Photo</span>
                                         <img src="" alt="preview" class='img_previewer idAttachment' >
@@ -192,7 +192,7 @@
                             <div class=" col-sm-12 col-md-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="store_photo">Store Photo</label>
-                                    <input required type="file" class='form-control input-upload-image' name='store_photo' id='store_photo'>
+                                    <input type="file" class='form-control input-upload-image' name='store_photo' id='store_photo'>
                                     <label for="store_photo" class='image_preview'>
                                         <span>Upload Photo</span>
                                         <img src="" alt="preview" class='img_previewer store_photo'>

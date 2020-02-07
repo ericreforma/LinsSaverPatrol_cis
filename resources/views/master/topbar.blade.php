@@ -1,6 +1,7 @@
 <div class="topbar">
     <div class="logo_container">
-
+        <img src="{{ asset('/img/logo_big.jpg') }}" />
+        <h1>Saver Patrol</h1>
     </div>
     <div class="menu_button_container">
         <div>
@@ -24,12 +25,13 @@
                     <h6>{{ Auth::user()->email }} </h6>
                 </div>
             </div>
-           
 
             <div class="dropdown-divider"></div>
+
             <a class="dropdown-item" href="#">
                 <i class="fas fa-cog"></i><span>Account Settings</span>
             </a>
+
             <a class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt"></i><span>Logout</span>

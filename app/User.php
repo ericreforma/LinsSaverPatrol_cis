@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'lastname', 'firstname', 'middlename', 'contact_number','type_id'
     ];
 
     /**
@@ -36,4 +36,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function type(){
+        return $this->hasOne('App\UserType','id','type_id');
+    }
+    
+    public function privileges(){
+        return $this->hasMany('App\UserPrivilege','user_id','id');
+    }
+
+    public function customer_role(){
+        return $this->hasOne('App\UserPrivilege','user_id', 'id')->where('feature_id', 1);
+    }
+
+    public function item_role(){
+        return $this->hasOne('App\UserPrivilege','user_id', 'id')->where('feature_id', 2);
+    }
+
+    public function report_role(){
+        return $this->hasOne('App\UserPrivilege','user_id', 'id')->where('feature_id', 3);
+    }
+
+    public function usermanagement_role(){
+        return $this->hasOne('App\UserPrivilege','user_id', 'id')->where('feature_id', 4);
+    }
+
+    public function sales_role(){
+        return $this->hasOne('App\UserPrivilege','user_id', 'id')->where('feature_id', 5);
+    }
 }

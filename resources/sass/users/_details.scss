@@ -1,0 +1,16 @@
+.user_details{
+    .user_details_table{
+        tr{
+            td{
+                font-size: 17px;
+            }
+            td:last-child{
+                 padding-left: 20px;
+                 font-weight: bold;
+            }
+        }
+    }
+    h2{
+        color: $blue;
+    }
+}

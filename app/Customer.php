@@ -31,4 +31,28 @@ class Customer extends Model
     public function storeMedia(){
         return $this->hasOne('App\Media', 'id', 'storephoto_media_id');
     }
+
+    public function authors(){
+        return $this->hasMany('App\Author','document_id','id');
+    }
+
+    public function previousEditor(){
+        return $this->hasMany('App\Author','document_id','id')
+        ->where('document_type','customer')
+        ->where('user_role','edited')
+        ->orderBy('id','desc')
+        ->with('user');
+    }
+
+    public function creator(){
+        return $this->hasMany('App\Author','document_id','id')
+            ->where('document_type','customer')
+            ->where('user_role','created')
+            ->with('user');
+    }
+    
+    public function sales(){
+        return $this->hasMany('App\Sales','customer_id','id');
+    }
+
 }
