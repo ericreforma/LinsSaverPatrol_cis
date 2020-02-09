@@ -16,8 +16,13 @@
             @if($priv->feature_id == 4 && $priv->role_view == 1)
                 <li class="{{session('active_nav') == 'users' ? 'active' : ''}}"><a href="{{ route('users_list') }}"><i class="far fa-address-book"></i><span>User Management</span></a></li>
             @endif
+
+            @if($priv->feature_id == 6 && $priv->role_view == 1)
+                <li class="{{session('active_nav') == 'store_category' ? 'active' : ''}}"><a href="{{ route('storeCategory_view') }}"><i class="fas fa-store-alt"></i><span>Store Categories</span></a></li>
+            @endif
+
+
         @endforeach
-        <!-- <li class="{{session('active_nav') == 'store_category' ? 'active' : ''}}"><a href=""><i class="fas fa-store-alt"></i><span>Store Categories</span></a></li> -->
         <!-- <li class="{{session('active_nav') == 'geo' ? 'active' : ''}}"><a href=""><i class="fas fa-globe-asia"></i><span>Geo Data</span></a></li> -->
     </ul>
 </div>

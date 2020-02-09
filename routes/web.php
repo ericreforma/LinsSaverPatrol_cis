@@ -50,5 +50,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/add', 'UserController@store')->name('users_store');
         Route::get('/details/{id}', 'UserController@details')->name('users_details');
     });
-
+    
+    Route::prefix('storeCategory')->group(function(){
+        Route::get('/', 'StoreCategoryController@index')->name('storeCategory_view');
+    });
 });

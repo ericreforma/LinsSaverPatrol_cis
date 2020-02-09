@@ -47,3 +47,10 @@ Route::prefix('report')->group(function(){
     Route::get('credit', 'ReportController@get_credit');
     Route::get('daily', 'ReportController@get_daily');
 });
+
+Route::prefix('storeCategory')->group(function(){
+    Route::get('/get', 'StoreCategoryController@view');
+    Route::post('/add', 'StoreCategoryController@add');
+    Route::get('/delete', 'StoreCategoryController@delete');
+    Route::get('/details/{id}', 'StoreCategoryController@details');
+});

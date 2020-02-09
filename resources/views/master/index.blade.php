@@ -17,7 +17,6 @@
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-grid.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-reboot.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap-select.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('/css/vendor/datatables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/dataTables.bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/dataTables.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/vendor/datatable/buttons.bootstrap4.min.css') }}">
