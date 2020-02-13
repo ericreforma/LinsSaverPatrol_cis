@@ -11656,7 +11656,7 @@ a.text-dark:focus {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   padding: 20px;
-  width: 950px;
+  width: 1200px;
   padding-bottom: 75px;
 }
 
@@ -11815,7 +11815,7 @@ a.text-dark:focus {
   text-align: center;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1400px) {
   .navigation {
     left: -230px;
   }
@@ -11823,9 +11823,7 @@ a.text-dark:focus {
   .navigation.open_menu {
     left: 0;
   }
-}
 
-@media only screen and (max-width: 1200px) {
   .main_content {
     padding-left: 0 !important;
   }
@@ -11962,7 +11960,8 @@ body .form-inline .form-group label {
 }
 
 body .form-inline .form-group input,
-body .form-inline .form-group select {
+body .form-inline .form-group select,
+body .form-inline .form-group textarea {
   width: 100%;
 }
 

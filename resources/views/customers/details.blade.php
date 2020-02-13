@@ -181,9 +181,11 @@
                                         <th>Item</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
-                                        <th>Amount</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
                                         <th>Credit</th>
                                         <th>Credit Due Date</th>
+                                        <th>Memo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -321,7 +323,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                                        <label for="amount">Amount</label>
+                                        <label for="amount">IP Amount</label>
                                     </div>
                                     <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
                                         <div class="input-group">
@@ -333,6 +335,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="ro_amount">RO Amount</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">P</span>
+                                            </div>
+                                            <input type="number" class='form-control' name='ro_amount' id='ro_amount' pattern="[0-9]+([,\.][0-9]+)?" step="0.01">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-12 col-sm-4 col-md-4 col-lg-4">
@@ -361,7 +379,7 @@
                                     </div>
                                 </div>
                             </div>
-                               
+                           
                             <div class="row collapse multi-collapse" id="creditDueCollapse">
                                 <div class="form-group">
                                     <div class="col-12 col-sm-4 col-md-4 col-lg-4">
@@ -378,7 +396,17 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="ro_amount">Memo</label>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
+                                        
+                                        <textarea class="form-control" id="memo" name='memo' rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -514,9 +542,11 @@
                             "item_name" : json[i].item.name,
                             "price" : `P ${parseFloat(json[i].price).toLocaleString()} / ${json[i].unit.short_name}`,
                             "quantity" : `${parseFloat(json[i].quantity).toLocaleString()} ${json[i].unit.short_name}S`,
-                            "amount" : parseFloat(json[i].amount).toLocaleString(),
+                            "ip_amount" : parseFloat(json[i].amount).toLocaleString(),
+                            "ro_amount" : json[i].ro_amount != null ? parseFloat(json[i].ro_amount).toLocaleString() : '',
                             "credit_amount" : json[i].credit_amount != null ? parseFloat(json[i].credit_amount).toLocaleString() : '',
                             "credit_duedate" : json[i].credit_duedate != null ? json[i].credit_duedate : '',
+                            "memo" : json[i].memo,
                             "menu" : `<button class='btn btn-primary' onclick="getForm(${json[i].id})">Edit</button>`
                             });
                         }
@@ -531,9 +561,11 @@
                     {"mData": "item_name"},
                     {"mData": "price"},
                     {"mData": "quantity"},
-                    {"mData": "amount"},
+                    {"mData": "ip_amount"},
+                    {"mData": "ro_amount"},
                     {"mData": "credit_amount"},
                     {"mData": "credit_duedate"},
+                    {"mData": "memo"},
                     {"mData": "menu"},
                 ],
             });
@@ -643,11 +675,12 @@
             $('#ledger_unit').val('');
             $('#ledger_qty').val('');
             $('#amount').val('');
+            $('#ro_amount').val('');
+            $('#memo').val('');
             $('#hasDueDate').prop('checked',false);
             $('#credit_amount').val('');
             $('#credit_duedate').val('');
             $('#creditDueCollapse').collapse('hide');
-
 
         }
         function getForm(id){
@@ -669,6 +702,8 @@
                     $('#ledger_qty').val(response.quantity);
                     $('#amount').val(response.amount);
                     $('#credit_amount').val(response.credit_amount);
+                    $('#ro_amount').val(response.ro_amount);
+                    $('#memo').val(response.memo);
                     if(response.credit_duedate != null) {
                         $('#hasDueDate').prop('checked', true);
                         $('#creditDueCollapse').collapse('show');

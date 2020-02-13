@@ -38,7 +38,13 @@ class ReportController extends Controller
         $date_to = $request->has('date_to') ? $request->date_to : null;
 
         $sales_city_ = Sales::
-            select('city_code','province_code', DB::raw('sum(amount) as total_amount'));
+            select('city_code','province_code', 
+                DB::raw('sum(quantity) as total_quantity'), 
+                DB::raw('sum(amount) as total_amount'), 
+                DB::raw('sum(ro_amount) as total_ro_amount'),
+                DB::raw('sum(credit_amount) as total_credit_amount')
+            );
+
             
         if($date_from != null) {
             $sales_city_->whereBetween('sales_date', [$date_from, $date_to]);
@@ -46,6 +52,7 @@ class ReportController extends Controller
 
         $sales_city = $sales_city_->groupBy('city_code')
             ->orderBy('city_code','asc')
+            ->with('customer')
             ->with('city')
             ->with('province')
             ->get();
@@ -57,7 +64,11 @@ class ReportController extends Controller
         $date_to = $request->has('date_to') ? $request->date_to : null;
 
         $sales_barangay_ = Sales::
-            select('barangay_code','city_code','province_code', DB::raw('sum(amount) as total_amount'));
+            select('barangay_code','city_code','province_code', 
+                DB::raw('sum(quantity) as total_quantity'), 
+                DB::raw('sum(amount) as total_amount'),
+                DB::raw('sum(credit_amount) as total_credit_amount'), 
+                DB::raw('sum(ro_amount) as total_ro_amount'));
             
         if($date_from != null) {
             $sales_barangay_->whereBetween('sales_date', [$date_from, $date_to]);
@@ -78,7 +89,12 @@ class ReportController extends Controller
         $date_to = $request->has('date_to') ? $request->date_to : null;
 
         $sales_customer_ = Sales::
-            select('customer_id', DB::raw('sum(amount) as total_amount'));
+            select('customer_id', 
+                DB::raw('sum(quantity) as total_quantity'),
+                DB::raw('sum(amount) as total_amount'),
+                DB::raw('sum(ro_amount) as total_ro_amount'),
+                DB::raw('sum(credit_amount) as total_credit_amount')
+            );
             
         if($date_from != null) {
             $sales_customer_->whereBetween('sales_date', [$date_from, $date_to]);

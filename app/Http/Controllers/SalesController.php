@@ -26,6 +26,9 @@ class SalesController extends Controller
         $sales->unit_id = $request->ledger_unit;
         $sales->quantity = $request->ledger_qty;
         $sales->amount = $request->amount;
+        
+        $sales->ro_amount = $request->ro_amount;
+        $sales->memo = $request->memo;
         $sales->credit_amount = $request->credit_amount == '' || $request->credit_amount == 0 ? null : $request->credit_amount;
 
         $creditDueDate = null;

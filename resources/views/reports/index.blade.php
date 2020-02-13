@@ -11,7 +11,7 @@
                         <a class="nav-item nav-link active" id="nav-city-tab" data-toggle="tab" href="#nav-city" role="tab" aria-controls="nav-city" aria-selected="true">SALES BY CITY</a>
                         <a class="nav-item nav-link" id="nav-barangay-tab" data-toggle="tab" href="#nav-barangay" role="tab" aria-controls="nav-barangay" aria-selected="false">SALES BY BARANGAY</a>
                         <a class="nav-item nav-link" id="nav-agent-tab" data-toggle="tab" href="#nav-agent" role="tab" aria-controls="nav-agent" aria-selected="false">SALES BY AGENT</a>
-                        <a class="nav-item nav-link" id="nav-credit-tab" data-toggle="tab" href="#nav-credit" role="tab" aria-controls="nav-credit" aria-selected="false">SALES BY CREDIT AMOUNT/CONSIGNMENT</a>
+                        <a class="nav-item nav-link" id="nav-credit-tab" data-toggle="tab" href="#nav-credit" role="tab" aria-controls="nav-credit" aria-selected="false" style='display: none'>SALES BY CREDIT AMOUNT/CONSIGNMENT</a>
                         <a class="nav-item nav-link" id="nav-daily-tab" data-toggle="tab" href="#nav-daily" role="tab" aria-controls="nav-daily" aria-selected="false">DAILY COLLECTION REPORT</a>
                     </div>
                 </nav>
@@ -47,13 +47,27 @@
                                     <tr>
                                         <th>Province</th>
                                         <th>City</th>
-                                        <th>Amount</th>
+                                        <th>Quantity</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
+                                        <th>Credit Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Province</th>
+                                        <th>City</th>
+                                        <th>Quantity</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
+                                        <th>Credit Amount</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
+
                         <div class="tab-pane fade" id="nav-barangay" role="tabpanel" aria-labelledby="nav-barangay-tab">
                             <h3>Sales by Barangay</h3>
                             <div class="row justify-content-between">
@@ -85,12 +99,26 @@
                                         <th>Province</th>
                                         <th>City</th>
                                         <th>Barangay</th>
-                                        <th>Amount</th>
+                                        <th>Quantity</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
+                                        <th>Credit Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                    
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Province</th>
+                                        <th>City</th>
+                                        <th>Barangay</th>
+                                        <th>Quantity</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
+                                        <th>Credit Amount</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
 
@@ -123,16 +151,28 @@
                                 <thead>
                                     <tr>
                                         <th>Customer</th>
-                                        <th>Amount</th>
+                                        <th>Quantity</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
+                                        <th>Credit Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                    
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Quantity</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
+                                        <th>Credit Amount</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
 
-                         <div class="tab-pane fade" id="nav-credit" role="tabpanel" aria-labelledby="nav-credit-tab">
+                         <div class="tab-pane fade" id="nav-credit" role="tabpanel" aria-labelledby="nav-credit-tab" style='display: none'>
                             <h3>Credit / Consignment</h3>
                             <div class="row justify-content-between">
                                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
@@ -204,8 +244,10 @@
                                         <th>Quantity</th>
                                         <th>Unit Cost</th>
                                         <th>Item</th>
-                                        <th>Amount</th>
-                                        <th>Credit</th>
+                                        <th>IP Amount</th>
+                                        <th>RO Amount</th>
+                                        <th>Credit Amount</th>
+                                        <th>Memo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -216,10 +258,12 @@
                                         <th>TOTAL</th>
                                         <th></th>
                                         <th>Quantity</th>
-                                        <th>Unit Cost</th>
                                         <th></th>
-                                        <th>Amount</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>RO Amount</th>
                                         <th>Credit</th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -280,12 +324,15 @@
                                 $(node).removeClass('btn-secondary')
                             },
                             customize: function (doc) {
-                                doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                                doc.content[1].table.widths = [ '20%', '20%', '15%', '15%','15%','15%'];
                                 var iColumns = $('#table_city_report thead th').length;
 
-                                var rowCount = document.getElementById("table_city_report").rows.length;
+                                var rowCount = doc.content[1].table.body.length;
                                 for (i = 0; i < rowCount; i++) {
                                         doc.content[1].table.body[i][iColumns - 1].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 2].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 3].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 4].alignment = 'right';
                                 };
 
                                 
@@ -294,10 +341,11 @@
                                 objLayout['vLineWidth'] = function(i) { return 0; };
                                 objLayout['hLineColor'] = function(i) { return 0; };
                                 objLayout['vLineColor'] = function(i) { return 0; };
-                                objLayout['paddingLeft'] = function(i) { return 15; };
-                                objLayout['paddingRight'] = function(i) { return 15; };
+                                objLayout['paddingLeft'] = function(i) { return 10; };
+                                objLayout['paddingRight'] = function(i) { return 10; };
                                 doc.content[1].layout = objLayout;
-                            }
+                            },
+                            footer: true
                         }
                     ],
                     responsive: true,
@@ -315,7 +363,10 @@
                                 return_data.push({
                                     "province" : json[i].province.description,
                                     "city" : json[i].city.description,
+                                    "quantity" : parseFloat(json[i].total_quantity).toLocaleString(),
                                     "amount" : parseFloat(json[i].total_amount).toLocaleString(),
+                                    "ro_amount" : json[i].total_ro_amount != null ? parseFloat(json[i].total_ro_amount).toLocaleString() : '',
+                                    "credit_amount" : json[i].total_credit_amount != null ? parseFloat(json[i].total_credit_amount).toLocaleString() : '',
                                 });
                             }
                             return return_data;
@@ -324,8 +375,48 @@
                     aoColumns: [
                         {"mData": "province"},
                         {"mData": "city"},
+                        {"mData": "quantity"},
                         {"mData": "amount"},
+                        {"mData": "ro_amount"},
+                        {"mData": "credit_amount"},
                     ],
+                    footerCallback: function ( row, data, start, end, display ) {
+                        var api = this.api(),
+                        intVal = function (i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[, Rs]|(\.\d{2})/g,"")* 1 :
+                                typeof i === 'number' ?
+                                i : 0;
+                        },
+                        qty = api
+                            .column(2)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        amount = api
+                            .column(3)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        ro_amount = api
+                            .column(4)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        credit_amount = api
+                            .column(5)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+                        $(api.column(2).footer()).html(parseFloat(qty).toLocaleString());
+                        $(api.column(3).footer()).html(parseFloat(amount).toLocaleString());
+                        $(api.column(4).footer()).html(parseFloat(ro_amount).toLocaleString());
+                        $(api.column(5).footer()).html(parseFloat(credit_amount).toLocaleString());
+                    }
                 });
             
             // BARANGAY
@@ -348,12 +439,14 @@
                                 $(node).removeClass('btn-secondary')
                             },
                             customize: function (doc) {
-                                doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                                doc.content[1].table.widths = [ '15%', '15%', '15%', '13%','13%', '13%','13%'];
                                 var iColumns = $('#table_barangay_report thead th').length;
 
-                                var rowCount = document.getElementById("table_barangay_report").rows.length;
+                                var rowCount = doc.content[1].table.body.length;
                                 for (i = 0; i < rowCount; i++) {
                                         doc.content[1].table.body[i][iColumns - 1].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 2].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 3].alignment = 'right';
                                 };
 
                                 
@@ -362,10 +455,11 @@
                                 objLayout['vLineWidth'] = function(i) { return 0; };
                                 objLayout['hLineColor'] = function(i) { return 0; };
                                 objLayout['vLineColor'] = function(i) { return 0; };
-                                objLayout['paddingLeft'] = function(i) { return 15; };
-                                objLayout['paddingRight'] = function(i) { return 15; };
+                                objLayout['paddingLeft'] = function(i) { return 10; };
+                                objLayout['paddingRight'] = function(i) { return 10; };
                                 doc.content[1].layout = objLayout;
-                            }
+                            },
+                            footer: true
                         }
                     ],
                     responsive: true,
@@ -384,7 +478,10 @@
                                     "province" : json[i].province.description,
                                     "city" : json[i].city.description,
                                     "barangay" : json[i].barangay.description,
+                                    "quantity" : parseFloat(json[i].total_quantity).toLocaleString(),
                                     "amount" : parseFloat(json[i].total_amount).toLocaleString(),
+                                    "ro_amount" : json[i].total_ro_amount != null ? parseFloat(json[i].total_ro_amount).toLocaleString() : '',
+                                    "credit" : json[i].total_credit_amount != null ? parseFloat(json[i].total_credit_amount).toLocaleString() : '',
                                 });
                             }
                             return return_data;
@@ -394,8 +491,49 @@
                         {"mData": "province"},
                         {"mData": "city"},
                         {"mData": "barangay"},
+                        {"mData": "quantity"},
                         {"mData": "amount"},
+                        {"mData": "ro_amount"},
+                        {"mData": "credit"},
                     ],
+                    footerCallback: function ( row, data, start, end, display ) {
+                        var api = this.api(),
+                        intVal = function (i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[, Rs]|(\.\d{2})/g,"")* 1 :
+                                typeof i === 'number' ?
+                                i : 0;
+                        },
+                        qty = api
+                            .column(3)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        amount = api
+                            .column(4)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        ro_amount = api
+                            .column(5)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        credit = api
+                            .column(6)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+                        
+                        $(api.column(3).footer()).html(parseFloat(qty).toLocaleString());
+                        $(api.column(4).footer()).html(parseFloat(amount).toLocaleString());
+                        $(api.column(5).footer()).html(parseFloat(ro_amount).toLocaleString());
+                        $(api.column(6).footer()).html(parseFloat(credit).toLocaleString());
+                    }
                 });
             
             // CUSTOMER
@@ -418,12 +556,15 @@
                                 $(node).removeClass('btn-secondary')
                             },
                             customize: function (doc) {
-                                doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                                doc.content[1].table.widths = [ '40%', '15%', '15%','15%', '15%'];
                                 var iColumns = $('#table_agent_report thead th').length;
 
-                                var rowCount = document.getElementById("table_agent_report").rows.length;
+                                var rowCount = doc.content[1].table.body.length;
                                 for (i = 0; i < rowCount; i++) {
                                         doc.content[1].table.body[i][iColumns - 1].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 2].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 3].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 4].alignment = 'right';
                                 };
 
                                 
@@ -432,10 +573,11 @@
                                 objLayout['vLineWidth'] = function(i) { return 0; };
                                 objLayout['hLineColor'] = function(i) { return 0; };
                                 objLayout['vLineColor'] = function(i) { return 0; };
-                                objLayout['paddingLeft'] = function(i) { return 15; };
-                                objLayout['paddingRight'] = function(i) { return 15; };
+                                objLayout['paddingLeft'] = function(i) { return 10; };
+                                objLayout['paddingRight'] = function(i) { return 10; };
                                 doc.content[1].layout = objLayout;
-                            }
+                            },
+                            footer: true
                         }
                     ],
                     responsive: true,
@@ -452,7 +594,10 @@
                             for(var i=0;i< json.length; i++){
                                 return_data.push({
                                     "customer" : `${json[i].customer.firstname} ${json[i].customer.middlename != null ? json[i].customer.middlename : ''} ${json[i].customer.lastname}`,
+                                    "quantity" : parseFloat(json[i].total_quantity).toLocaleString(),
                                     "amount" : parseFloat(json[i].total_amount).toLocaleString(),
+                                    "ro_amount" : json[i].total_ro_amount != null ? parseFloat(json[i].total_ro_amount).toLocaleString() : '',
+                                    "credit_amount" : json[i].total_credit_amount != null ? parseFloat(json[i].total_credit_amount).toLocaleString() : '',
                                 });
                             }
                             return return_data;
@@ -460,8 +605,48 @@
                     },
                     aoColumns: [
                         {"mData": "customer"},
+                        {"mData": "quantity"},
                         {"mData": "amount"},
+                        {"mData": "ro_amount"},
+                        {"mData": "credit_amount"},
                     ],
+                    footerCallback: function ( row, data, start, end, display ) {
+                        var api = this.api(),
+                        intVal = function (i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[, Rs]|(\.\d{2})/g,"")* 1 :
+                                typeof i === 'number' ?
+                                i : 0;
+                        },
+                        qty = api
+                            .column(1)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        amount = api
+                            .column(2)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        ro_amount = api
+                            .column(3)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        credit_amount = api
+                            .column(4)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+                        $(api.column(1).footer()).html(parseFloat(qty).toLocaleString());
+                        $(api.column(2).footer()).html(parseFloat(amount).toLocaleString());
+                        $(api.column(3).footer()).html(parseFloat(ro_amount).toLocaleString());
+                        $(api.column(4).footer()).html(parseFloat(credit_amount).toLocaleString());
+                    }
                 });
                 
             // CREDIT 
@@ -551,16 +736,17 @@
                                 $(node).removeClass('btn-secondary')
                             },
                             customize: function (doc) {
-                                // doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-                                doc.content[1].table.widths = [ '25%', '15%', '13%', '13%', '13%', '11%', '10%'];
+                                doc.pageOrientation = 'landscape';
+                                doc.content[1].table.widths = [ '20%', '10%', '10%', '10%', '10%', '10%', '10%', '10%', '10%'];
                                 var iColumns = $('#table_daily_report thead th').length;
 
-                                var rowCount = document.getElementById("table_daily_report").rows.length;
+                                var rowCount = doc.content[1].table.body.length;
                                 for (i = 0; i < rowCount; i++) {
-                                        doc.content[1].table.body[i][iColumns - 1].alignment = 'right';
                                         doc.content[1].table.body[i][iColumns - 2].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 3].alignment = 'right';
                                         doc.content[1].table.body[i][iColumns - 4].alignment = 'right';
-                                        doc.content[1].table.body[i][iColumns - 5].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 6].alignment = 'right';
+                                        doc.content[1].table.body[i][iColumns - 7].alignment = 'right';
                                 };
 
                                 
@@ -594,8 +780,10 @@
                                     "quantity" : parseFloat(json[i].quantity).toLocaleString(),
                                     "price" : parseFloat(json[i].price).toLocaleString(),
                                     "item" :json[i].item.name,
-                                    "amount" : parseFloat(json[i].amount).toLocaleString(),
+                                    "ip_amount" : parseFloat(json[i].amount).toLocaleString(),
+                                    "ro_amount" : json[i].ro_amount != null ? parseFloat(json[i].ro_amount).toLocaleString() : '',
                                     "credit" : json[i].credit_amount != null ? parseFloat(json[i].credit_amount).toLocaleString() : '',
+                                    "memo" :json[i].memo,
                                 });
                             }
                             return return_data;
@@ -607,8 +795,10 @@
                         {"mData":"quantity"},
                         {"mData":"price"},
                         {"mData":"item"},
-                        {"mData":"amount"},
+                        {"mData":"ip_amount"},
+                        {"mData":"ro_amount"},
                         {"mData":"credit"},
+                        {"mData":"memo"},
                     ],
                     footerCallback: function ( row, data, start, end, display ) {
                         var api = this.api(),
@@ -636,17 +826,23 @@
                             .reduce(function (a, b) {
                                 return intVal(a) + intVal(b);
                             }, 0),
-                        credit = api
+                        ro_amount = api
                             .column(6)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0),
+                        credit = api
+                            .column(7)
                             .data()
                             .reduce(function (a, b) {
                                 return intVal(a) + intVal(b);
                             }, 0);
                         
                         $(api.column(2).footer()).html(parseFloat(qty).toLocaleString());
-                        $(api.column(3).footer()).html(parseFloat(cost).toLocaleString());
                         $(api.column(5).footer()).html(parseFloat(amount).toLocaleString());
-                        $(api.column(6).footer()).html(parseFloat(credit).toLocaleString());
+                        $(api.column(6).footer()).html(parseFloat(ro_amount).toLocaleString());
+                        $(api.column(7).footer()).html(parseFloat(credit).toLocaleString());
                     }
                 });
 
@@ -765,8 +961,8 @@
                     daily_date.date_to = end.format('Y-MM-DD');
                     daily_datatable.ajax.reload();
                     $('.alert_daily').html(`Showing results from ${start.format('MMM DD, Y')} to ${end.format('MMM DD, Y')}`)
-
                 });
+
                 $('#daterange_daily').on('apply.daterangepicker', function(ev, picker) {
                     daily_date.date_from = picker.startDate.format('Y-MM-DD');
                     daily_date.date_to = picker.endDate.format('Y-MM-DD');

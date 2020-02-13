@@ -215,8 +215,8 @@ class CustomerController extends Controller
         return $customers;
     }
     public function delete(Request $request){
-        $customer = Customer::find($request->id);
+        $customer = Customer::find($request->id)->delete();
+        $sales = Sales::where('customer_id',$request_id)->delete();
 
-        $customer->delete();
     }
 }

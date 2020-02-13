@@ -1,7 +1,7 @@
 <div class="topbar">
     <div class="logo_container">
-        <img src="{{ asset('/img/logo_big.jpg') }}" />
-        <h1>Saver Patrol</h1>
+        <!-- <img src="{{ asset('/img/logo_big.jpg') }}" />
+        <h1>Saver Patrol</h1> -->
     </div>
     <div class="menu_button_container">
         <div>

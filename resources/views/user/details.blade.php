@@ -81,6 +81,14 @@
                     
                 </div>
             </div>
+            <div class="row justify-content-end mt-4">
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                    <a href="" class="btn btn-primary btn-block">Edit</a>
+                </div>
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                    <div class="btn btn-danger btn-block">Delete</div>
+                </div>
+            </div>
         </div>
     </div>
 
