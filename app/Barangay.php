@@ -15,4 +15,8 @@ class Barangay extends Model
     public function province() {
         return $this->belongsTo('App\Province','province_code','code');
     }
+
+    public function customers() {
+        return $this->hasMany('App\Customer','barangay_code','code');
+    }
 }

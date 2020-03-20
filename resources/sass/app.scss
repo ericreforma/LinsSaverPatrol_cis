@@ -10,8 +10,9 @@
 @import 'users/list';
 @import 'users/add';
 @import 'users/details';
+@import 'report';
+@import 'profile';
 @import '404';
-
 
 @import 'responsive';
 body{
@@ -189,5 +190,10 @@ body{
             font-weight: bold;
             text-transform: uppercase;
         }
+    }
+    .profile_picture{
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 } 

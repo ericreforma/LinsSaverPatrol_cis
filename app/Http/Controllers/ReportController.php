@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sales;
+use App\Province;
 use DB;
 use Auth;
 
@@ -12,27 +13,14 @@ class ReportController extends Controller
     public function index(){
         if(Auth::user()->report_role->role_view == 1) {
             session(['active_nav' => 'reports']);
-            $sales_barangay = Sales::
-                            select('*', DB::raw('sum(amount) as total_amount'))
-                            ->groupBy('barangay_code')
-                            ->orderBy('barangay_code','asc')
-                            ->with('city')
-                            ->with('province')
-                            ->with('barangay')
-                            ->get();
+            $provinces = Province::orderBy('description','asc')->get();
 
-            $sales_customer = Sales::
-                            select('*', DB::raw('sum(amount) as total_amount'))
-                            ->groupBy('customer_id')
-                            ->orderBy('customer_id','asc')
-                            ->with('customer')
-                            ->get();
-            
-            return view('reports.index');
+            return view('reports.index', compact('provinces'));
         }
         
         return abort(404);
     }
+
     public function get_city(Request $request){
         $date_from = $request->has('date_from') ? $request->date_from : null;
         $date_to = $request->has('date_to') ? $request->date_to : null;
@@ -59,28 +47,40 @@ class ReportController extends Controller
 
         return $sales_city;
     }
+
     public function get_barangay(Request $request){
         $date_from = $request->has('date_from') ? $request->date_from : null;
         $date_to = $request->has('date_to') ? $request->date_to : null;
-
+        
         $sales_barangay_ = Sales::
             select('barangay_code','city_code','province_code', 
                 DB::raw('sum(quantity) as total_quantity'), 
                 DB::raw('sum(amount) as total_amount'),
                 DB::raw('sum(credit_amount) as total_credit_amount'), 
-                DB::raw('sum(ro_amount) as total_ro_amount'));
-            
-        if($date_from != null) {
+                DB::raw('sum(ro_amount) as total_ro_amount'),
+                DB::raw('count(distinct customer_id) as total_reporting_customers')
+            );
+
+        if($request->isDate == 1) {
             $sales_barangay_->whereBetween('sales_date', [$date_from, $date_to]);
         }
+        
+        if($request->isLocation == 1) {
+            $sales_barangay_->where('barangay_code', $request->barangay_code);
+        }
 
-        $sales_barangay = $sales_barangay_->groupBy('barangay_code')
+        $sales_barangay = $sales_barangay_
+            ->groupBy('barangay_code')
             ->orderBy('barangay_code','asc')
             ->with('barangay')
             ->with('city')
             ->with('province')
             ->get();
 
+        foreach($sales_barangay as $brgy){
+            $brgy->barangay->customers;
+        }
+        
         return $sales_barangay;
     }
 
@@ -96,8 +96,20 @@ class ReportController extends Controller
                 DB::raw('sum(credit_amount) as total_credit_amount')
             );
             
-        if($date_from != null) {
+        if($request->isDate == 1) {
             $sales_customer_->whereBetween('sales_date', [$date_from, $date_to]);
+        }
+        
+        if($request->isLocation == 1) {
+            if($request->province_code != '') {
+                $sales_customer_->where('province_code',$request->province_code);
+            }
+            if($request->city_code != '' || !is_null($request->city_code)) {
+                $sales_customer_->where('city_code',$request->city_code);
+            }
+            if($request->barangay_code != '' || !is_null($request->barangay_code)) {
+                $sales_customer_->where('barangay_code',$request->barangay_code);
+            }
         }
 
         $sales_customer = $sales_customer_->groupBy('customer_id')

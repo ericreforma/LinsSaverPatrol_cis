@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\StoreCategory;
+use Auth;
 
 class StoreCategoryController extends Controller
 {
     public function index(){
-        session(['active_nav' => 'store_category']);
+        if(Auth::user()->storecategory_role->role_view == 1){
+            session(['active_nav' => 'store_category']);
+            return view('storeCategory.index');
+        }
 
-        return view('storeCategory.index');
+        return abort(404);
     }
 
     public function view(){
@@ -34,5 +38,9 @@ class StoreCategoryController extends Controller
         $cat = StoreCategory::find($id);
         return $cat;
         
+    }
+
+    public function delete(Request $request){
+        StoreCategory::find($request->id)->delete();
     }
 }

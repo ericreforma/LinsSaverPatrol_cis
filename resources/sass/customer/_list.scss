@@ -12,4 +12,13 @@
         margin-top: 10px;
         margin-bottom: 10px;
     }
+    td:nth-child(7){
+        text-align: right;
+    }
+    .custom-switch{
+        *{
+            cursor: pointer;
+
+        }
+    }
 }

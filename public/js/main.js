@@ -26,6 +26,7 @@ $(function(){
             fetch_geo('barangays', $(this).val())
         })
 
+        
     // CUSTOMER ADD
         .on('change','#idAttachment', function (){
             previewImage(this, 'idAttachment');
@@ -41,5 +42,18 @@ $(function(){
                 $(`#ledger_unit option[value=${item.unit_id}]`).attr('selected','selected');
             });
         })
+
+    // REPORT EVENTS
+        .on('change', "select[name='province']", function(){
+            fetch_geo_report('cities', $(this))
+        })
+        .on('change', "select[name='cities']", function(){
+            fetch_geo_report('barangays', $(this))
+        })
+        .on('change','input[type="checkbox"]', function(){
+            $(`.${$(this).attr('target')}_${$(this).attr('targetType')}_filter_container`).fadeToggle();
+        })
+
+    // PROFILE ADD
         
 });

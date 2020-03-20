@@ -11683,6 +11683,14 @@ a.text-dark:focus {
   margin-bottom: 10px;
 }
 
+.customer_list td:nth-child(7) {
+  text-align: right;
+}
+
+.customer_list .custom-switch * {
+  cursor: pointer;
+}
+
 .customer_details .image_container {
   width: 100%;
   height: 400px;
@@ -11731,7 +11739,13 @@ a.text-dark:focus {
 .customer_details .sales_ledger_table tr td:nth-child(3),
 .customer_details .sales_ledger_table tr td:nth-child(4),
 .customer_details .sales_ledger_table tr td:nth-child(5),
-.customer_details .sales_ledger_table tr td:nth-child(6) {
+.customer_details .sales_ledger_table tr td:nth-child(6),
+.customer_details .sales_ledger_table tr td:nth-child(7),
+.customer_details .sales_ledger_table tr th:nth-child(7),
+.customer_details .sales_ledger_table tr th:nth-child(3),
+.customer_details .sales_ledger_table tr th:nth-child(4),
+.customer_details .sales_ledger_table tr th:nth-child(5),
+.customer_details .sales_ledger_table tr th:nth-child(6) {
   text-align: right;
 }
 
@@ -11776,6 +11790,14 @@ a.text-dark:focus {
   cursor: pointer;
 }
 
+.user_add .error {
+  color: #e3342f;
+}
+
+.user_add .error.hide {
+  display: none;
+}
+
 .user_details .user_details_table tr td {
   font-size: 17px;
 }
@@ -11787,6 +11809,68 @@ a.text-dark:focus {
 
 .user_details h2 {
   color: #3490dc;
+}
+
+.report_container .filter_container {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 8px #9b9b9b57;
+  margin-bottom: 15px;
+}
+
+.report_container .custom-switch * {
+  cursor: pointer;
+}
+
+.report_container .custom-switch label {
+  font-weight: bold;
+}
+
+.report_container .alert {
+  font-weight: bold;
+}
+
+.profile .photo_container {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  margin: auto;
+  overflow: hidden;
+  -webkit-box-align: center;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+}
+
+.profile .photo_container_placeholder {
+  background-color: #3490dc;
+  text-align: center;
+  position: relative;
+}
+
+.profile .photo_container_placeholder span {
+  font-size: 145px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.profile .photo_container_placeholder img {
+  display: none;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.profile .btn_change_photo {
+  display: block;
+  margin: auto;
+}
+
+.profile .error {
+  color: #e3342f;
+  display: none;
 }
 
 .page-404 {
@@ -12091,5 +12175,11 @@ body .letter_profile_picture span {
   font-size: 34px;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+body .profile_picture {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 

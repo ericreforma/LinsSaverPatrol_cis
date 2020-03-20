@@ -23,8 +23,10 @@ class CustomerController extends Controller
         if(Auth::user()->customer_role->role_view == 1){
             session(['active_nav' => 'customer']);
             $customers = Customer::orderBy('id','desc')->get();
+
+            
             $provinces = Province::all();
-    
+            
             return view('customers.list', compact('customers', 'provinces'));
         }
 
@@ -32,7 +34,6 @@ class CustomerController extends Controller
     }
 
     public function store_view(){
-
         if(Auth::user()->customer_role->role_add == 1){
             session(['active_nav' => 'customer']);
             $provinces = Province::orderBy('description','asc')->get();
@@ -57,7 +58,7 @@ class CustomerController extends Controller
         $media->save();
     
         return $media->id;
-      }
+    }
 
     public function store(Request $request){
         session(['active_nav' => 'customer']);
@@ -106,7 +107,6 @@ class CustomerController extends Controller
         $customer = Customer::find($request->id);
         $customer->status = $request->status;
         $customer->save();
-
     }
 
     public function details($id){
@@ -118,8 +118,6 @@ class CustomerController extends Controller
 
             $creator = $customer->creator->first();
             $editor=null;
-
-        
 
             if($customer->previousEditor->first() !== null){
                 $editor = $customer->previousEditor->first();
@@ -188,17 +186,18 @@ class CustomerController extends Controller
             'barangay_code' => $customer->barangay_code,
         ]);
         
-        
         return redirect()->route('customer_details', ['id' => $customer->id]);
     }
 
     public function get_list(Request $request){
-
-
+        $date_from = $request->has('date_from') ? $request->date_from : null;
+        $date_to = $request->has('date_to') ? $request->date_to : null;
+        
         $customer = Customer::orderBy('id','desc')
-                    ->with('store_category');
+                    ->with('store_category')
+                    ->with(['sales']);
 
-        if($request->filtered == 1){
+        if($request->isLocation == 1) {
             if($request->province != '') {
                 $customer->where('province_code',$request->province);
             }
@@ -210,13 +209,25 @@ class CustomerController extends Controller
             }
         }
 
-        $customers = $customer->get();
+        if($request->isDate == 1) {
+            $customer->whereBetween('created_at', [$date_from, $date_to]);
+        }
 
+        $customers = $customer->get();
+        foreach($customers as $c) {
+            $total_sales = 0;
+            foreach($c->sales as $s){
+                $total_sales += is_null($s->amount) ? 0 : $s->amount;
+                $total_sales += is_null($s->ro_amount) ? 0 : $s->ro_amount;
+                $total_sales += is_null($s->credit_amount) ? 0 : $s->credit_amount;
+            }
+            $c->total_sales = $total_sales;
+        }
         return $customers;
     }
+
     public function delete(Request $request){
         $customer = Customer::find($request->id)->delete();
         $sales = Sales::where('customer_id',$request_id)->delete();
-
     }
 }

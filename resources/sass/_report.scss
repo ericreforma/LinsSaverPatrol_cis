@@ -1,0 +1,20 @@
+.report_container{
+    .filter_container{
+        background-color: #f7f7f7;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 8px #9b9b9b57;
+        margin-bottom: 15px;
+    }
+    .custom-switch{
+        *{
+            cursor: pointer;
+        }
+        label{
+            font-weight: bold;
+        }
+    }
+    .alert{
+        font-weight: bold;
+    }
+}

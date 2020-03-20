@@ -28,7 +28,8 @@
                                     </span>
                                 </div>
                             @else
-                                <img src='' class='profile_picture' />
+                                <div class="letter_profile_picture profile_picture" style="background-image: url('/influencer/LinsSaverPatrol_CIS/public/storage/media/{{ $user->media->url }}')">
+                                </div>
                             @endif
                         </td>
                         <td>{{ $user->firstname }} {{ $user->middlename }} {{ $user->lastname }}</td>

@@ -66,16 +66,23 @@ class SalesController extends Controller
         $customer = Customer::find($id);
 
         $total_qty = 0;
-        $total_amount = 0;
+        $total_ip = 0;
+        $total_ro = 0;
         $total_credit = 0;
 
         $sales = $customer->sales;
         foreach($sales as $sale){
             $total_qty += $sale->quantity;
-            $total_amount += $sale->amount;
+            $total_ip += $sale->amount;
+            $total_ro +=  $sale->ro_amount == null ? 0 : $sale->ro_amount;
             $total_credit +=  $sale->credit_amount == null ? 0 : $sale->credit_amount;
         }
 
-        return response()->json(['total_qty' => $total_qty, 'total_amount' => $total_amount, 'total_credit' => $total_credit]);
+        return response()->json([
+            'total_qty' => $total_qty,
+            'total_ip' => $total_ip,
+            'total_ro' => $total_ro,
+            'total_credit' => $total_credit]
+        );
     }
 }

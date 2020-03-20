@@ -1,7 +1,7 @@
 <div class="topbar">
     <div class="logo_container">
-        <!-- <img src="{{ asset('/img/logo_big.jpg') }}" />
-        <h1>Saver Patrol</h1> -->
+        <img src="{{ asset('/img/logo_big.jpg') }}" />
+        <h1>Saver Patrol</h1>
     </div>
     <div class="menu_button_container">
         <div>
@@ -12,14 +12,28 @@
     </div>
     <div class="account_container dropdown">
 
-        <div class="profile_picture dropdown-toggle" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ substr(Auth::user()->username, 0, 1) }}
-        </div>
+
+        @if(Auth::user()->media_id == 0)
+            <div class="profile_picture dropdown-toggle" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ substr(Auth::user()->username, 0, 1) }}
+            </div>
+        @else 
+            <div class="profile_picture dropdown-toggle" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-image: url('/influencer/LinsSaverPatrol_CIS/public/storage/media/{{ Auth::user()->media->url }}')">
+            </div>
+        @endif
+
+        
         <div class="dropdown-menu account_menu" aria-labelledby="dropdownMenuButton">
             <div class="account_profile">
+                @if(Auth::user()->media_id == 0)
                 <div class="profile_picture">
                     {{ substr(Auth::user()->username, 0, 1) }}
                 </div>
+                @else 
+                <div class="profile_picture" style="background-image: url('/influencer/LinsSaverPatrol_CIS/public/storage/media/{{ Auth::user()->media->url }}')">
+                </div>
+                @endif
+                
                 <div class="profile_name">
                     <h5>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h5>
                     <h6>{{ Auth::user()->email }} </h6>
@@ -28,8 +42,8 @@
 
             <div class="dropdown-divider"></div>
 
-            <a class="dropdown-item" href="#">
-                <i class="fas fa-cog"></i><span>Account Settings</span>
+            <a class="dropdown-item" href="{{ route('profile') }}">
+                <i class="fas fa-cog"></i><span>Profile</span>
             </a>
 
             <a class="dropdown-item" href="{{ route('logout') }}"

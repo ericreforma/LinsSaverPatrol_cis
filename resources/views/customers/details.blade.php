@@ -96,7 +96,7 @@
                                 <div class=" col-sm-12 col-md-12 col-lg-6">
                                     <h5>ID ATTACHMENT</h5>
                                     <div class="image_container">
-                                        @if($customer->idAttachment_media_id != null)
+                                        @if($customer->idattachment_media_id != null)
                                             <img src="/influencer/LinsSaverPatrol_CIS/public/storage/media/{{ $customer->idMedia->url }}" alt="" data-toggle="modal" data-target="#imagePreviewModal" class="small_preview">
                                         @endif
                                     </div>
@@ -192,6 +192,20 @@
                                 <tbody>
                                     
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                             <div class="row justify-content-end mt-5">
                                 <div class="col-12 col-sm-6 col-md-4 col-lg-4">
@@ -201,8 +215,12 @@
                                             <td class='total_qty'></td>
                                         </tr>
                                         <tr>
-                                            <td>Total Amount</td>
-                                            <td class='total_amount'></td>
+                                            <td>Total IP Amount</td>
+                                            <td class='total_ip'></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total RO Amount</td>
+                                            <td class='total_ro'></td>
                                         </tr>
                                         <tr>
                                             <td>Total Credit Amount</td>
@@ -520,15 +538,50 @@
                 responsive: true,
                 autoWidth: false,
                 processing: true,
+                dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'csv',
                         filename: '{{ $fullname }} Sales Ledger',
-                        
+                        className: 'btn btn-primary',
+                        init: function(api, node, config) {
+                            $(node).removeClass('btn-secondary')
+                        },
                     }, {
                         extend: 'pdf',
                         filename: '{{ $fullname }} Sales Ledger',
-                        
+                        title: '{{ $fullname }} Sales Ledger',
+                        className: 'btn btn-primary',
+                        init: function(api, node, config) {
+                            $(node).removeClass('btn-secondary')
+                        },
+                        exportOptions: {
+                            columns: [0,1,2,3,4,5,6,7,8]
+                        },
+                        customize: function (doc) {
+                            doc.pageOrientation = 'landscape';
+                            doc.content[1].table.widths = [ '11.1%', '11.1%', '11.1%','11.1%', '11.1%','11.1%', '11.1%','11.1%','11.1%', '0%'];
+                            var iColumns = $('.sales_ledger_table thead th').length;
+
+                            var rowCount = doc.content[1].table.body.length;
+                            for (i = 0; i < rowCount; i++) {
+                                    doc.content[1].table.body[i][iColumns - 4].alignment = 'right';
+                                    doc.content[1].table.body[i][iColumns - 5].alignment = 'right';
+                                    doc.content[1].table.body[i][iColumns - 6].alignment = 'right';
+                                    doc.content[1].table.body[i][iColumns - 7].alignment = 'right';
+                            };
+
+                            
+                            var objLayout = {};
+                            objLayout['hLineWidth'] = function(i) { return 0; };
+                            objLayout['vLineWidth'] = function(i) { return 0; };
+                            objLayout['hLineColor'] = function(i) { return 0; };
+                            objLayout['vLineColor'] = function(i) { return 0; };
+                            objLayout['paddingLeft'] = function(i) { return 10; };
+                            objLayout['paddingRight'] = function(i) { return 10; };
+                            doc.content[1].layout = objLayout;
+                        },
+                        footer: true
                     }
                 ],
                 ajax: {
@@ -541,7 +594,7 @@
                             "sales_date" : json[i].sales_date,
                             "item_name" : json[i].item.name,
                             "price" : `P ${parseFloat(json[i].price).toLocaleString()} / ${json[i].unit.short_name}`,
-                            "quantity" : `${parseFloat(json[i].quantity).toLocaleString()} ${json[i].unit.short_name}S`,
+                            "quantity" : `${parseFloat(json[i].quantity).toLocaleString()}`,
                             "ip_amount" : parseFloat(json[i].amount).toLocaleString(),
                             "ro_amount" : json[i].ro_amount != null ? parseFloat(json[i].ro_amount).toLocaleString() : '',
                             "credit_amount" : json[i].credit_amount != null ? parseFloat(json[i].credit_amount).toLocaleString() : '',
@@ -568,6 +621,43 @@
                     {"mData": "memo"},
                     {"mData": "menu"},
                 ],
+                footerCallback: function ( row, data, start, end, display ) {
+                    var api = this.api(),
+                    intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[, Rs]|(\.\d{2})/g,"")* 1 :
+                            typeof i === 'number' ?
+                            i : 0;
+                    },
+                    qty = api
+                        .column(3)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0),
+                    amount = api
+                        .column(4)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0),
+                    ro_amount = api
+                        .column(5)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0),
+                    credit = api
+                        .column(6)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                    $(api.column(3).footer()).html(parseFloat(qty).toLocaleString());
+                    $(api.column(4).footer()).html(parseFloat(amount).toLocaleString());
+                    $(api.column(5).footer()).html(parseFloat(ro_amount).toLocaleString());
+                    $(api.column(6).footer()).html(parseFloat(credit).toLocaleString());
+                }
             });
 
             
@@ -721,7 +811,8 @@
                 url: `${window.location.origin}/influencer/LinsSaverPatrol_CIS/public/api/sales/totals/${id}`,
                 success: function(response){
                     $('.total_qty').html(parseFloat(response.total_qty).toLocaleString());
-                    $('.total_amount').html(parseFloat(response.total_amount).toLocaleString());
+                    $('.total_ip').html(parseFloat(response.total_ip).toLocaleString());
+                    $('.total_ro').html(parseFloat(response.total_ro).toLocaleString());
                     $('.total_credit').html(parseFloat(response.total_credit).toLocaleString());
                 }
             })

@@ -10,7 +10,7 @@ use App\Barangay;
 class GeoController extends Controller
 {
    public function get_provinces(){
-        return Province::all();
+        return Province::orderBy('description','asc')->get();
    }
 
    public function get_cities(Request $request) {

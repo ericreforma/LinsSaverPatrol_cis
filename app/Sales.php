@@ -15,6 +15,7 @@ class Sales extends Model
     public function customer(){
         return $this->hasOne('App\Customer','id', 'customer_id');
     }
+    
     public function unit(){
         return $this->hasOne('App\Unit','id','unit_id');
     }

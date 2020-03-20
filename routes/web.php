@@ -48,9 +48,18 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/list', 'UserController@list')->name('users_list');
         Route::get('/add', 'UserController@store_view')->name('users_add');
         Route::post('/add', 'UserController@store')->name('users_store');
+        Route::get('/edit/{id}', 'UserController@edit_view')->name('users_edit');
+        Route::post('/edit/{id}', 'UserController@edit_store')->name('users_edit_save');
         Route::get('/details/{id}', 'UserController@details')->name('users_details');
     });
-    
+
+    // Profile
+    Route::prefix('profile')->group(function(){
+        Route::get('/', 'UserController@profile_view')->name('profile');
+        Route::post('/', 'UserController@profile_store')->name('profile_store');
+    });
+
+    // Store Category
     Route::prefix('storeCategory')->group(function(){
         Route::get('/', 'StoreCategoryController@index')->name('storeCategory_view');
     });

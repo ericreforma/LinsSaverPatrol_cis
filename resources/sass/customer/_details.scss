@@ -46,7 +46,10 @@
    .sales_ledger_table{
        tr{
            td:nth-child(3),td:nth-child(4),
-           td:nth-child(5),td:nth-child(6){
+           td:nth-child(5),td:nth-child(6),
+           td:nth-child(7),th:nth-child(7),
+           th:nth-child(3),th:nth-child(4),
+           th:nth-child(5),th:nth-child(6){
                text-align: right;
            }
        }

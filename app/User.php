@@ -40,7 +40,11 @@ class User extends Authenticatable
     public function type(){
         return $this->hasOne('App\UserType','id','type_id');
     }
-    
+
+    public function media(){
+        return $this->hasOne('App\Media','id','media_id');
+    }
+
     public function privileges(){
         return $this->hasMany('App\UserPrivilege','user_id','id');
     }
@@ -63,5 +67,9 @@ class User extends Authenticatable
 
     public function sales_role(){
         return $this->hasOne('App\UserPrivilege','user_id', 'id')->where('feature_id', 5);
+    }
+
+    public function storecategory_role(){
+        return $this->hasOne('App\UserPrivilege','user_id', 'id')->where('feature_id', 6);
     }
 }

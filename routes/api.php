@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+ 
 Route::prefix('geo')->group(function(){
     Route::get('provinces', 'GeoController@get_provinces');
     Route::get('cities', 'GeoController@get_cities');
@@ -31,7 +31,6 @@ Route::prefix('sales')->group(function(){
     Route::post('delete', 'SalesController@delete');
     Route::get('details/{id}', 'SalesController@get_details');
     Route::get('ledger/get/{id}', 'SalesController@get_ledger');
-
 });
 
 Route::prefix('customer')->group(function(){
@@ -51,6 +50,16 @@ Route::prefix('report')->group(function(){
 Route::prefix('storeCategory')->group(function(){
     Route::get('/get', 'StoreCategoryController@view');
     Route::post('/add', 'StoreCategoryController@add');
-    Route::get('/delete', 'StoreCategoryController@delete');
+    Route::post('/delete', 'StoreCategoryController@delete');
     Route::get('/details/{id}', 'StoreCategoryController@details');
 });
+
+Route::prefix('userManagement')->group(function(){
+    Route::get('/checkUsername_add','UserController@add_check_username');
+    Route::get('/checkUsername_edit','UserController@edit_check_username');
+    Route::get('/checkemail_add','UserController@add_check_email');
+    Route::get('/checkemail_edit','UserController@edit_check_email');
+    Route::post('delete', 'UserController@delete');
+});
+
+Route::post('/profile_validate', 'UserController@profile_validate');

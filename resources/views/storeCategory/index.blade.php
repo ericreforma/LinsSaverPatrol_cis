@@ -32,8 +32,9 @@
                 <input type="hidden" id="isEdit" name="isEdit" value='0' />
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="add_category_modalLabel">ADD NEW CATEGORY</h5>
-
+                    @if(Auth::user()->storecategory_role->role_add == 1)
+                        <h5 class="modal-title" id="add_category_modalLabel">ADD NEW CATEGORY</h5>
+                    @endif
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
                     <span aria-hidden="true">&times;</span>
@@ -55,7 +56,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    @if(Auth::user()->storecategory_role->role_delete == 1)
                     <button class="btn btn-danger btn_delete">Delete</button>
+                    @endif
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
@@ -80,7 +83,9 @@
                         for(var i=0;i< json.length; i++){
                             return_data.push({
                                 "storeCategory" : json[i].description,
-                                "menu" : `<button class='btn btn-primary view_details' storeCategory_id='${json[i].id}'>Edit</button>`
+                                @if(Auth::user()->storecategory_role->role_edit == 1)
+                                    "menu" : `<button class='btn btn-primary view_details' storeCategory_id='${json[i].id}'>Edit</button>`
+                                @endif
                             });
                         }
                         return return_data;
@@ -88,7 +93,9 @@
                 },
                 aoColumns: [
                     {"mData": "storeCategory"},
-                    {"mData": "menu"},
+                    @if(Auth::user()->storecategory_role->role_edit == 1)
+                        {"mData": "menu"},
+                    @endif
                 ],
             });
 
@@ -117,6 +124,7 @@
                     }
                 })
             });
+
             $('.add_category_button').on('click', function(){
                 $('#isEdit').val(0);
                 $('#add_category_modal').modal('show');
@@ -136,6 +144,25 @@
                         $('#isEdit').val(1);
                         $('.btn_delete').show();
                         $('.add_category_modalLabel').html('EDITING CATEGORY');
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                })
+            })
+            .on('click','.btn_delete', function(){
+                
+                $.ajax({
+                    type: 'post',
+                    data: { id: $('#storeCategory_id').val() },
+                    url: `${window.location.origin}/influencer/LinsSaverPatrol_CIS/public/api/storeCategory/delete`,
+                    success: function(response){
+                        $('#description').val('');
+                        storeCategory_datatable.ajax.reload();
+                        $('#add_category_modal').modal('hide');
+
+                        $('#add_category_modal button[type=submit]').attr('disabled',false);
+                        $('#add_category_modal button[type=submit]').html(`Save`);
                     },
                     error: function(e){
                         console.log(e);
